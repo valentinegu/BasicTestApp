@@ -1,0 +1,36 @@
+<?php 
+	setcookie("aCookie", "static-value", time()+10000); 
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Web Info</title>
+	</head>
+	<body>
+		<img src="/images/logo.jpg" width="150" height="40">
+		<h1>Here some info: </h1>
+		<table>
+			<?php 
+				$headers = array();
+				echo '<tr><td>Cient IP: </td><td>' . $_SERVER[REMOTE_ADDR] . '</td></tr>';
+				echo '<tr><td>Client (Src) Port: </td><td>' . $_SERVER[REMOTE_PORT] . '</td></td>';
+				echo '<tr><td>Server IP: </td><td>' . $_SERVER[SERVER_ADDR] . '</td></tr>';
+				echo '<tr><td>Server (Dest) Port: </td><td>' . $_SERVER[SERVER_PORT] . '</td></td>';
+			
+				echo '</table><h2>Some more details:</h2><table>';
+				echo "<tr><td>Request URI : </td><td> " . $_SERVER['REQUEST_URI'] . " </td></tr>";
+				foreach($_SERVER as $name => $value) {
+					if (strpos($name, 'HTTP_') === 0) {
+						$headers = str_replace(' ', '-', ucwords(str_replace('_', " ", strtolower(substr($name, 5)))));
+						echo "<tr><td>".$headers." : </td><td>". $i[$headers] = $value . "</td></tr>";
+					} 
+				}
+			?>
+		</table>
+		<form action="echo.php" method="post">
+			<h3>Post a Messege:</h3>
+			<textarea id="Msg" type="test" cols="40" rows="5" name="Msg"></textarea></br>
+			<input type="submit" name="Go!" value="submit" />
+		</form>
+	</body>
+</html>
