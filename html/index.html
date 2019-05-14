@@ -30,8 +30,9 @@
                 </br>
                 <H3>Scale Test:</H3>
                 <a href="/load.php"> Initiate high CPU! </a>
-                <form action="/extload.php">
-                        <input type="submit" value="Open Script">
+                <form method="get" action="/extload.php">
+                        <button type="submit"> Initiate load to:</button>
+                        <input type="text" name="q">
                 </form>
                 </br>
                 <form action="echo.php" method="post">
