@@ -30,10 +30,12 @@
                 </br>
                 <H3>Scale Test:</H3>
                 <a href="/load.php"> Initiate high CPU! </a>
-                <form method="get" action="/extload.php">
-                        <button type="submit"> Initiate load to:</button>
-                        <input type="text" name="q">
-                </form>
+<?php
+                echo "<form method=\"get\" action=\"/extload.php\">";
+                echo "       <button type=\"submit\"> Initiate load to:</button>";
+                echo "       <input type=\"text\" name=\"q\" value=\"http://" . $_SERVER['HTTP_HOST'] . "/\">";
+                echo "</form>";
+?>
                 </br>
                 <form action="echo.php" method="post">
                         <h3>Post a Messege:</h3>
