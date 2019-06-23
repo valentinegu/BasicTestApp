@@ -1,5 +1,6 @@
 <?php
-while(true) {
+$endtime = time() + 600;
+while( time() <= $endtime ) {
         $i=0;
         $j=0;
         while($i< 999){
