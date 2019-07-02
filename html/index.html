@@ -31,7 +31,7 @@
 <?php
                 echo "<form method=\"get\" action=\"/extload.php\">";
                 echo "       <button type=\"submit\"> Initiate load to:</button>";
-                echo "       <input type=\"text\" name=\"q\" value=\"http://" . $_SERVER['HTTP_HOST'] . "/\">";
+                echo "       <input type=\"text\" name=\"q\" value=\"http://" . $_SERVER[REMOTE_ADDR] . "/index.php\">";
                 echo "</form>";
 ?>
                 </br>
