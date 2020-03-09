@@ -5,6 +5,19 @@
                 <meta http-equiv="refresh" content="10" > 
         </head>
         <body>
+        <?php
+                function randStr($length = 20 ) {
+                        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        $string = '';
+
+                        for ($i = 0; $i < $length; $i++) {
+                                $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+                        }
+                        return $string;
+                }
+                setcookie("Ramdom", randStr() );
+        ?>
+
                 <img src="./logo.jpg" width="150" height="40">
                 <h1>Here some info: </h1>
                 <table>
