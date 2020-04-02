@@ -3,6 +3,11 @@
         <head>
                 <title>Web Info</title>
                 <meta http-equiv="refresh" content="10" > 
+                <style>
+		        .content { display: none; overflow: hidden; }
+		        .active, .collapsible:hover { background-color: #ccc; }
+		        .collapsible { background-color: #eee; cursor: pointer; outline: none; margin: auto; display:block;}
+	        </style>
         </head>
         <body>
         <?php
@@ -15,32 +20,40 @@
                         }
                         return $string;
                 }
-                setcookie("Ramdom", randStr() );
+                if ( !isset( $_COOKIE['Random'] ) ) {
+                        setcookie("Ramdom", randStr() );
+                }
         ?>
 
-                <img src="./logo.jpg" width="150" height="40">
-                <h1>Here some info: </h1>
-                <table>
+                <img src="./logo.jpg" width="150" height="40" style="display: block; margin: auto;">
+                <h3 align="center">TCP\IP info: </h3>
+                <table align="center">
                         <?php
                                 $headers = array();
                                 echo '<tr><td>Cient IP: </td><td>' . $_SERVER[REMOTE_ADDR] . '</td></tr>';
                                 echo '<tr><td>Client (Src) Port: </td><td>' . $_SERVER[REMOTE_PORT] . '</td></td>';
                                 echo '<tr><td>Server IP: </td><td>' . $_SERVER[SERVER_ADDR] . '</td></tr>';
                                 echo '<tr><td>Server (Dest) Port: </td><td>' . $_SERVER[SERVER_PORT] . '</td></td>';
-
-                                echo '</table><h2>Some more details:</h2><table>';
-                                echo "<tr><td>Request URI : </td><td> " . $_SERVER['REQUEST_URI'] . " </td></tr>";
+                </table>
+                <br>
+                        ?>
+                <button type="button" class="collapsible">View All Request Headers</button>
+		<table class="content" align="center">
+                        <?php
+                                echo "<tr><td nowrap>Request URI : </td><td> " . $_SERVER['REQUEST_URI'] . " </td></tr>";
                                 foreach($_SERVER as $name => $value) {
                                         if (strpos($name, 'HTTP_') === 0) {
                                                 $headers = str_replace(' ', '-', ucwords(str_replace('_', " ", strtolower(substr($name, 5)))));
-                                                echo "<tr><td>".$headers." : </td><td>". $i[$headers] = $value . "</td></tr>";
+                                                echo "<tr nowrap><td>".$headers." : </td><td>". $i[$headers] = $value . "</td></tr>";
                                         }
                                 }
                         ?>
                 </table>
                 </br>
-                <H3>Scale Test:</H3>
-                <a href="/load.php"> Initiate high CPU! </a>
+                
+                <button type="button" class="collapsible">Scale Test</button>
+		<div class="content" align="center">
+                        <a href="/load.php"> Initiate high CPU! </a>
 <?php
                 echo "<form method=\"get\" action=\"/extload.php\">";
                 echo "       <button type=\"submit\"> Initiate load to:</button>";
@@ -48,10 +61,32 @@
                 echo "</form>";
 ?>
                 </br>
-                <form action="echo.php" method="post">
-                        <h3>Post a Messege:</h3>
-                        <textarea id="Msg" type="test" cols="40" rows="5" name="Msg"></textarea></br>
-                        <input type="submit" name="Go!" value="submit" />
-                </form>
+                
+                </div>
+                
+                <button type="button" class="collapsible">Post a Messege</button>
+		<div class="content" align="center">
+                        <form action="echo.php" method="post">
+                                <h3>Post a Messege:</h3>
+                                <textarea id="Msg" type="test" cols="40" rows="5" name="Msg"></textarea></br>
+                                <input type="submit" name="Go!" value="submit" />
+                        </form>
+                </div>
+                <script>
+                        var coll = document.getElementsByClassName("collapsible");
+                        var i;
+
+                        for (i=0; i< coll.length; i++) {
+                                coll[i].addEventListener("click", function() {
+                                        this.classList.toggle("active");
+                                        var content = this.nextElementSibling;
+                                        if (content.style.display === "block") {
+                                                content.style.display = "none";
+                                        } else {
+                                                content.style.display = "block";
+                                        }
+                                });
+                        }
+	        </script>
         </body>
 </html>
